@@ -1,73 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/Spacing"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/quantityText"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/quantity"
-        android:textAllCaps="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:theme="@style/Spacing"
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/minusButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:text="-"
-        app:layout_constraintLeft_toLeftOf="@id/quantityText"
-        app:layout_constraintRight_toLeftOf="@id/noOfCoffees"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/quantityText"
-        android:onClick="decrement"/>
-    <TextView
-        android:id="@+id/noOfCoffees"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/minusButton"
-        app:layout_constraintBottom_toBottomOf="@id/minusButton"
-        app:layout_constraintRight_toLeftOf="@id/plusButton"
-        app:layout_constraintLeft_toRightOf="@id/minusButton"
-        android:text="1"
-        android:textColor="@android:color/black"/>
-    <Button
-        android:id="@+id/plusButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintLeft_toRightOf="@id/noOfCoffees"
-        app:layout_constraintTop_toTopOf="@id/minusButton"
-        app:layout_constraintBottom_toBottomOf="@id/minusButton"
-        android:text="+"
-        android:onClick="increment"/>
-    <TextView
-        android:id="@+id/priceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/minusButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textAllCaps="true"
-        android:text="@string/price"/>
-    <TextView
-        android:id="@+id/order_summary_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/priceText"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textColor="@android:color/black"
-        android:text="@string/price_per_cup"/>
-    <Button
-        android:id="@+id/orderButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/order_button"
-        android:onClick="submitOrder"
-        app:layout_constraintTop_toBottomOf="@id/order_summary_text_view"/>
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint"
+            android:inputType="textCapWords"/>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/toppingsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toppings"
+            android:textAllCaps="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_edit_text"/>
+
+        <CheckBox
+            android:id="@+id/first_topping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="@string/first_topping"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/toppingsText" />
+
+        <CheckBox
+            android:id="@+id/second_topping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="@string/second_topping"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/first_topping" />
+
+        <TextView
+            android:id="@+id/quantityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity"
+            android:textAllCaps="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/second_topping" />
+
+        <Button
+            android:id="@+id/minusButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:onClick="decrement"
+            android:text="-"
+            app:layout_constraintLeft_toLeftOf="@id/quantityText"
+            app:layout_constraintRight_toLeftOf="@id/noOfCoffees"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quantityText" />
+
+        <TextView
+            android:id="@+id/noOfCoffees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@id/minusButton"
+            app:layout_constraintLeft_toRightOf="@id/minusButton"
+            app:layout_constraintRight_toLeftOf="@id/plusButton"
+            app:layout_constraintTop_toTopOf="@id/minusButton" />
+
+        <Button
+            android:id="@+id/plusButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="increment"
+            android:text="+"
+            app:layout_constraintBottom_toBottomOf="@id/minusButton"
+            app:layout_constraintLeft_toRightOf="@id/noOfCoffees"
+            app:layout_constraintTop_toTopOf="@id/minusButton" />
+
+
+        <Button
+            android:id="@+id/orderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="submitOrder"
+            android:text="@string/order_button"
+            app:layout_constraintTop_toBottomOf="@id/plusButton" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

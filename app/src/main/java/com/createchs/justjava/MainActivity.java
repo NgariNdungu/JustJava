@@ -1,11 +1,14 @@
 package com.createchs.justjava;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -19,22 +22,42 @@ public class MainActivity extends Activity {
 
     /* This method is called when order button is clicked*/
     public void submitOrder(View view) {
-        float price = calculatePrice();
-        String orderSummary = createOrderSummary(price);
-        displayMessage(orderSummary);
+        boolean hasWhippedCream = ((CheckBox) findViewById(R.id.first_topping)).isChecked();
+        boolean hasChocolate = ((CheckBox) findViewById(R.id.second_topping)).isChecked();
+        float price = calculatePrice(hasWhippedCream,hasChocolate);
+        String customerName = ((EditText) findViewById(R.id.name_edit_text)).getText().toString();
+        String orderSummary = createOrderSummary(price, hasWhippedCream, hasChocolate, customerName);
+
+        String[] recipient = new String[1];
+        recipient[0] = "awesome@coffee.shop";
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+        intent.putExtra(Intent.EXTRA_EMAIL, recipient);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.subject_prefix) + customerName);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
-    private String createOrderSummary(float price) {
-        String name = "Customer";
-        return "Name: " + name +
-                "\n Quantity: " + coffeeCups +
-                "\n Total: " + price +
-                "\n Thank you!";
+    private String createOrderSummary(float price, boolean hasWhippedCream, boolean hasChocolate, String customerName) {
+        String[] summaryPrefixes = getResources().getStringArray(R.array.summary);
+        return summaryPrefixes[0] + customerName +
+                summaryPrefixes[1] + hasWhippedCream +
+                summaryPrefixes[2] + hasChocolate +
+                summaryPrefixes[3] + coffeeCups +
+                summaryPrefixes[4] + price;
     }
 
-    private float calculatePrice() {
-        float price = coffeeCups * 5;
-        return price;
+    private float calculatePrice(boolean hasWhippedCream, boolean hasChocolate) {
+        float basePrice = 5; // price for a cup of coffee
+        if (hasWhippedCream) {
+            basePrice += 1;
+        }
+        if (hasChocolate) {
+            basePrice += 2;
+        }
+        return coffeeCups * basePrice;
     }
 
     /* This method displays the given quantity on the screen*/
@@ -43,21 +66,23 @@ public class MainActivity extends Activity {
         quantityTextView.setText(String.valueOf(number));
     }
 
-    private void displayMessage(String summary) {
-        // findViewById returns a View, hence the type casting
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(summary);
-    }
-
     public void decrement(View view) {
-        if (coffeeCups >= 1) {
+        if (coffeeCups > 1) {
             coffeeCups -= 1;
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.no_coffee),Toast.LENGTH_SHORT).show();
+            return;
         }
         display(coffeeCups);
     }
 
     public void increment(View view) {
-        coffeeCups += 1;
+        if (coffeeCups < 100) {
+            coffeeCups += 1;
+        } else {
+            Toast.makeText(this,getResources().getString(R.string.too_much),Toast.LENGTH_SHORT).show();
+            return;
+        }
         display(coffeeCups);
     }
 }
