@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Just Java</string>
     <string name="quantity">Quantity</string>
     <string name="order_button">Order</string>
@@ -6,15 +6,9 @@
     <string name="first_topping">Whipped cream</string>
     <string name="second_topping">Chocolate</string>
     <string name="hint">Name</string>
-    <string name="add">Add</string>
-    <string name="too_much">Can\'t have more than 100 cups!</string>
-    <string name="no_coffee">You do wan\'t coffee right?</string>
-    <string name="subject_prefix">"JustJava Order for "</string>
-    <string-array name="summary">
-        <item>"Name: "</item>
-        <item>"\nAdd Whipped cream? "</item>
-        <item>"\nAdd Chocolate? "</item>
-        <item>"\nQuantity: "</item>
-        <item>"\nTotal: "</item>
-    </string-array>
+    <string name="add" translatable="false">Add</string>
+    <string name="too_much" translatable="false">Can\'t have more than 100 cups!</string>
+    <string name="no_coffee" translatable="false">You do wan\'t coffee right?</string>
+    <string name="subject">"JustJava Order for "</string>
+    <string name="summary2">"Name: <xliff:g id="name">%s</xliff:g>\nAdd whipped cream? <xliff:g id="first_topping">%b</xliff:g>\nAdd chocolate? <xliff:g id="second_topping">%b</xliff:g> \nQuantity: <xliff:g id="quantity">%d</xliff:g>\nTotal: <xliff:g id="total">%.2f</xliff:g>"</string>
 </resources>

@@ -34,19 +34,14 @@ public class MainActivity extends Activity {
         intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
         intent.putExtra(Intent.EXTRA_EMAIL, recipient);
-        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.subject_prefix) + customerName);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.subject) + customerName);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
     }
 
     private String createOrderSummary(float price, boolean hasWhippedCream, boolean hasChocolate, String customerName) {
-        String[] summaryPrefixes = getResources().getStringArray(R.array.summary);
-        return summaryPrefixes[0] + customerName +
-                summaryPrefixes[1] + hasWhippedCream +
-                summaryPrefixes[2] + hasChocolate +
-                summaryPrefixes[3] + coffeeCups +
-                summaryPrefixes[4] + price;
+        return getString(R.string.summary2, customerName,hasWhippedCream,hasChocolate,coffeeCups,price);
     }
 
     private float calculatePrice(boolean hasWhippedCream, boolean hasChocolate) {
